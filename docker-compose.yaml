@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: workshop_todolist_postgres
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    volumes:
+      - ./pgdata:/var/lib/postgresql
+    ports:
+      - "${DB_PORT}:5432"
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: workshop_todolist_pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    ports:
+      - '${PGADMIN_HOST_PORT}:${PGADMIN_CONTAINER_PORT}'
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: workshop_nest-app
+    environment:
+      - PORT=${PORT}
+      - DATABASE_URL=postgresql://postgres:dm271146@postgres:5432/workshop_todolist_postgres
+    ports:
+      - '${PORT}:${PORT}'
+    depends_on:
+      - postgres
+    volumes:
+      - ./src:/app/src
+
+volumes:
+  postgres_data:
