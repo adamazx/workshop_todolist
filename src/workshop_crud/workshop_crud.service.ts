@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateWorkshopCrudDto } from './dto/create-workshop_crud.dto';
 import { UpdateWorkshopCrudDto } from './dto/update-workshop_crud.dto';
-
 @Injectable()
 export class WorkshopCrudService {
   constructor(private prisma: PrismaService) {}
 
   create(data: CreateWorkshopCrudDto) {
+    console.log("this.prisma", this.prisma)
     return this.prisma.user.create({
       data,
     });
@@ -26,7 +26,7 @@ export class WorkshopCrudService {
   update(id: number, data: UpdateWorkshopCrudDto) {
     return this.prisma.user.update({
       where: { id },
-      data,
+       data,
     });
   }
 
