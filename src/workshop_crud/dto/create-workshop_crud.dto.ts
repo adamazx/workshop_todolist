@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsEnum, IsOptional } from "class-validator";
+import { IsString, IsNotEmpty, IsEmail } from "class-validator";
 import { Status } from '@prisma/client';
 
 export class CreateWorkshopCrudDto {
@@ -13,6 +13,18 @@ export class CreateWorkshopCrudDto {
   @IsString()
   @IsNotEmpty()
   description: string;
+
+  @IsString()
+  @IsNotEmpty()
+  username: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
 
   status?: Status;
 }
