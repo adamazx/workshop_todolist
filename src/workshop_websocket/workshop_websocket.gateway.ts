@@ -13,12 +13,12 @@ export class WorkshopWebsocketGateway {
 
   @SubscribeMessage('message')
   handleMessage(@MessageBody() data: any): void{
-    console.log('hii', typeof(data));
     if(data.text === "ping"){
-      console.log("oi")
-      this.server.emit('Message','pong');
+      console.log('DATA:pong');
+      this.server.emit('message','pong');
     }else if(data.text === "pong"){
-      this.server.emit('Message', 'ping');
+      console.log('DATA:ping');
+      this.server.emit('message', 'ping');
     }else{
      console.log('test')
     }
