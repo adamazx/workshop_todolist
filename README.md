@@ -77,3 +77,5 @@ $ docker-compose logs -f
 # Setup
 $ DATABASE_URL="postgresql://postgres:<username>@localhost:<port>/<db>?schema=public"
 ```
+
+sawaddee
